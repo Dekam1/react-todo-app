@@ -29,13 +29,13 @@ function App() {
 
   //отвечает за решенные задачи
 
-
   React.useEffect(() => {
-    const item = localStorage.getItem('todos') || [];
+    const item = localStorage.getItem('todos') || JSON.stringify([]);
+    const item2 = localStorage.getItem('todos2') || JSON.stringify([]);
     setTodos(JSON.parse(item));
-    const item2 = localStorage.getItem('todos2') || [];
     setCompletedTodos(JSON.parse(item2));
   }, [])
+
 
   React.useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos))
@@ -67,7 +67,7 @@ function App() {
   }
 
   return (
-    <context.Provider value={{ deleteTodo, deleteCompletedTodos, solve}}>
+    <context.Provider value={{ deleteTodo, deleteCompletedTodos, solve }}>
       <div className="container">
         <div className="wrapper">
           <div className="todo">
@@ -77,7 +77,7 @@ function App() {
               onChange={(event) => setTodoTitle(event.target.value)}
               onKeyPress={(e) => todoAdd(e)}
               placeholder="Что сегодня?"></input>}
-            {!show && <Todo todos={todos} /> || <DecidedTodos completedTodos={completedTodos}/>}
+            {!show && <Todo todos={todos} /> || <DecidedTodos completedTodos={completedTodos} />}
             <div className="cheked">
               <img onClick={() => changeTodoUl()} src={!show ? "./img/completed.png" : "./img/close.png"}></img>
             </div>
